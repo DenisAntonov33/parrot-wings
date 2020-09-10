@@ -1,14 +1,15 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from '../modules/auth/navigation/AuthNavigation';
 
 interface Props {
+  navigation?: StackNavigationProp<any>;
 }
 
 const Stack = createStackNavigator();
 
-const Router = (props: Props) => {
+const Router: React.FC<Props> = (props) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
