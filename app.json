@@ -1,0 +1,12 @@
+{
+  "name": "ParrotWings",
+  "displayName": "ParrotWings",
+  "expo": {
+    "name": "ParrotWings",
+    "slug": "ParrotWings",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
