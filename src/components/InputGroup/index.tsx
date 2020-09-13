@@ -1,6 +1,6 @@
 import React from 'react';
 import AppInput from '../AppInput';
-import { KeyboardType } from 'react-native';
+import { KeyboardType, StyleSheet } from 'react-native';
 import { useFormValidator } from '../../hooks/useFormValidator';
 import { InputField } from '../../types';
 
@@ -51,7 +51,6 @@ const InputGroup: React.FC<Props> = (props) => {
 
   const changeFocus = (index: number) => {
     if (index !== fields.length - 1) {
-      
       inputEl.current[index + 1]?.focus();
     }
   };
@@ -77,9 +76,11 @@ const InputGroup: React.FC<Props> = (props) => {
           hasCleatBtn
           keyboardType={getKeyboardType(item.field)}
           error={item.error}
+          placeholder={item.label}
           onSubmitEditing={() => onEndEditing(index)}
           onEndEditing={(evt) => updateFieldError(evt, item.field, index)}
           returnKeyType={index === fields.length - 1 ? 'done' : 'next'}
+          style={styles.input}
           ref={(ref) => {
             inputEl.current.push(ref);
             return ref;
@@ -89,5 +90,11 @@ const InputGroup: React.FC<Props> = (props) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    marginBottom: 10,
+  },
+});
 
 export default InputGroup;

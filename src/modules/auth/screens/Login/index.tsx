@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParamList, AuthRoutes } from '../../types';
 import stylePatterns from '../../../../constants/stylePatterns';
 import PrimaryBtn from '../../../../components/buttons/PrimaryBtn';
 import InputGroup from '../../../../components/InputGroup';
-import { InputField } from '../../../../types';
+import Auth from '../../mobx/Auth';
+import { inject, observer } from 'mobx-react';
 
 interface Props {
   navigation: StackNavigationProp<AuthStackParamList>;
+  auth: typeof Auth;
 }
 
-const form: InputField[] = [
-  { field: 'login', value: '', error: '', label: 'Login' },
-  { field: 'password', value: '', error: '', label: 'Login' },
-];
-
 const Login: React.FC<Props> = (props) => {
-  const { navigation } = props;
-  const [formValue, setFormValue] = useState(form);
+  const { navigation, auth } = props;
+  const { signInForm, updateSignInForm, signIn } = auth;
+  const signUp = useCallback(() => {
+    navigation.navigate(AuthRoutes.signUp);
+  }, [navigation]);
+
   return (
     <View style={stylePatterns.container}>
-      <InputGroup fields={formValue} onChange={setFormValue} />
-      <Text>Login screen</Text>
-      <PrimaryBtn
-        title="sign up"
-        onPress={() => navigation.navigate(AuthRoutes.signUp)}
+      <InputGroup
+        fields={signInForm}
+        onChange={updateSignInForm}
+        onSubmit={signIn}
       />
+      <PrimaryBtn title="Sign in" onPress={signIn} />
+      <Text>Don't have an account yet?</Text>
+      <Text onPress={signUp}>Sign up</Text>
     </View>
   );
 };
 
-export default Login;
+export default inject('auth')(observer(Login));

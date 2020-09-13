@@ -7,6 +7,9 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "baseUrl": "http://193.124.114.46:3001"
+    }
   }
 }

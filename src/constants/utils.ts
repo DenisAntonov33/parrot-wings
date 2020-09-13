@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+
 export const delay = (
   ms: number,
   func?: (...args: any[]) => any,
@@ -17,4 +19,9 @@ export const delay = (
       resolve(response);
     }, ms);
   });
+};
+
+export const alertMessage = (msg: string, title = ''): void => {
+  console.log(typeof msg);
+  Alert.alert(title, msg, [{ text: 'OK' }]);
 };
