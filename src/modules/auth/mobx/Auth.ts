@@ -88,6 +88,6 @@ class Auth {
 }
 
 const auth = new Auth();
-hydrate('appSettings', auth).then(() => auth.setHydrated());
+hydrate('auth', auth).then(() => auth.setHydrated());
 
 export default auth;
