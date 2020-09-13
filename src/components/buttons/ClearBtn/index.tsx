@@ -1,0 +1,16 @@
+import React from 'react';
+import { TouchableOpacityProps } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AntDesign } from '@expo/vector-icons';
+
+interface Props extends TouchableOpacityProps {}
+
+const ClearBtn: React.FC<Props> = ({ style, ...props }) => {
+  return (
+    <TouchableOpacity style={style} {...props}>
+      <AntDesign name="closecircle" size={24} color="black" />
+    </TouchableOpacity>
+  );
+};
+
+export default ClearBtn;
