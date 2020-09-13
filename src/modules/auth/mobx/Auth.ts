@@ -80,6 +80,11 @@ class Auth {
       common.setLoading(false);
     }
   };
+
+  @action
+  signOut = () => {
+    this.token = '';
+  };
 }
 
 const auth = new Auth();
