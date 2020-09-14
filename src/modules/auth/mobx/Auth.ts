@@ -26,8 +26,6 @@ class Auth {
 
   @action
   setToken = (value: string) => {
-    console.log('value ', value);
-
     this.token = value;
   };
 

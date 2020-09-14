@@ -8,10 +8,7 @@ interface Props {
 }
 
 const UserInfo: React.FC<Props> = (props) => {
-  const { user } = props;
-  console.log(user);
-  
-
+  const { user } = props;  
   return (
     <View style={styles.userInfo}>
       <Text>{user.name}</Text>

@@ -22,6 +22,5 @@ export const delay = (
 };
 
 export const alertMessage = (msg: string, title = ''): void => {
-  console.log(typeof msg);
   Alert.alert(title, msg, [{ text: 'OK' }]);
 };
