@@ -9,7 +9,7 @@ export const getUserInfo = (): AxiosPromise<{ user_info_token: UserFull }> => {
   });
 };
 
-export const getUserList = (data: { filter: string }): AxiosPromise<User> => {
+export const getUserList = (data: { filter: string }): AxiosPromise<User[]> => {
   return apiInstance({
     method: 'post',
     url: `/api/protected/users/list`,
@@ -17,7 +17,9 @@ export const getUserList = (data: { filter: string }): AxiosPromise<User> => {
   });
 };
 
-export const getTransactions = (): AxiosPromise<Transaction> => {
+export const getTransactions = (): AxiosPromise<{
+  trans_token: Transaction[];
+}> => {
   return apiInstance({
     method: 'get',
     url: `/api/protected/transactions`,

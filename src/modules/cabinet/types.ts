@@ -1,9 +1,11 @@
 export enum CabinetRoutes {
-  home = 'auth/home',
+  home = 'cabinet/home',
+  history = 'cabinet/history',
 }
 
 export type CabinetStackParamList = {
   [CabinetRoutes.home]: undefined;
+  [CabinetRoutes.history]: undefined;
 };
 
 export interface User {

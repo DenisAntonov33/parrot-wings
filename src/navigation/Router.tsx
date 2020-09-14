@@ -35,6 +35,9 @@ const Router: React.FC<Props> = (props) => {
           <Stack.Screen
             name={'cabinet'}
             children={CabinetNavigation}
+            options={{
+              headerShown: false,
+            }}
           />
         )}
       </Stack.Navigator>
