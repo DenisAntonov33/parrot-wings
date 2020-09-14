@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import stylePatterns from '../../../../constants/stylePatterns';
@@ -19,13 +19,14 @@ interface Props {
 interface ItemProps {
   item: Transaction;
   canRepeat?: boolean;
-  navigation?: StackNavigationProp<CabinetStackParamList>;
+  onPress?: (item: Transaction) => void;
 }
 
-const Item: React.FC<ItemProps> = ({ item, navigation, canRepeat }) => {
-  const repeatTransaction = () => {
-    navigation?.navigate(CabinetRoutes.home);
-  };
+const Item: React.FC<ItemProps> = ({ item, onPress, canRepeat }) => {
+  const onPressWrapper = useCallback(() => onPress && onPress(item), [
+    item,
+    onPress,
+  ]);
   return (
     <View style={styles.row}>
       <Text style={styles.col1}>{item.date}</Text>
@@ -33,7 +34,7 @@ const Item: React.FC<ItemProps> = ({ item, navigation, canRepeat }) => {
       <Text style={styles.col3}> {item.amount}</Text>
       <Text style={styles.col4}> {item.balance}</Text>
       {canRepeat ? (
-        <TouchableOpacity style={styles.repeatBtn}>
+        <TouchableOpacity onPress={onPressWrapper} style={styles.repeatBtn}>
           <MaterialCommunityIcons name="reload" size={24} color="black" />
         </TouchableOpacity>
       ) : (
@@ -50,6 +51,8 @@ const History: React.FC<Props> = (props) => {
     transactions,
     fetchUserInfo,
     fetchTransactions,
+    setRecipient,
+    setTransactionAmount,
   } = cabinet;
 
   useEffect(() => {
@@ -71,15 +74,28 @@ const History: React.FC<Props> = (props) => {
     return unsubscribe;
   }, [navigation]);
 
+  const onRepeatPress = useCallback(
+    (item: Transaction) => {
+      const amount =
+        Math.sign(Number(item.amount)) > 0
+          ? `-${item.amount}`
+          : Math.abs(Number(item.amount));
+      setTransactionAmount(String(amount));
+      setRecipient({ name: item.username, id: '' });
+      navigation.navigate(CabinetRoutes.home);
+    },
+    [navigation]
+  );
+
   return (
     <View style={stylePatterns.container}>
       {Boolean(currentUser) && <UserInfo user={currentUser!} />}
       <FlatList
         data={transactions}
         renderItem={({ item }) => (
-          <Item item={item} canRepeat navigation={navigation} />
+          <Item item={item} canRepeat onPress={onRepeatPress} />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
         ListHeaderComponent={() => (
           <Item
             item={{

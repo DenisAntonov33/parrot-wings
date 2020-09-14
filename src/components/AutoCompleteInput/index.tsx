@@ -2,6 +2,7 @@ import React, {
   forwardRef,
   MutableRefObject,
   useCallback,
+  useEffect,
   useState,
 } from 'react';
 import {
@@ -42,7 +43,7 @@ export type Ref = MutableRefObject<TextInput>;
 
 const AutoCompleteInput: React.FC<Props> = forwardRef<Ref, Props>(
   (props, ref) => {
-    const { users, onItemSelected, onChangeText } = props;
+    const { users, selectedItem, onItemSelected, onChangeText } = props;
     const [popupState, setPopupState] = useState(false);
     const [value, setValue] = useState('');
 
@@ -66,7 +67,6 @@ const AutoCompleteInput: React.FC<Props> = forwardRef<Ref, Props>(
       setValue(item.name);
       onItemSelected(item);
       setPopupState(false);
-      
     };
 
     const renderItem = useCallback(
@@ -81,6 +81,12 @@ const AutoCompleteInput: React.FC<Props> = forwardRef<Ref, Props>(
       ),
       [onSelectWrapper]
     );
+
+    useEffect(() => {
+      if (selectedItem) {
+        setValue(selectedItem.name);
+      }
+    }, [selectedItem]);
 
     return (
       <View style={styles.container}>

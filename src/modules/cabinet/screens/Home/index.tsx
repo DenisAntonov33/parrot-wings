@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import stylePatterns from '../../../../constants/stylePatterns';
 import { inject, observer } from 'mobx-react';
-import { CabinetStackParamList, User } from '../../types';
+import { CabinetStackParamList } from '../../types';
 import UserInfo from '../../../../components/UserInfo';
 import Cabinet from '../../mobx/Cabinet';
 import AutoCompleteInput from '../../../../components/AutoCompleteInput';
@@ -23,17 +23,26 @@ const Home: React.FC<Props> = (props) => {
     fetchUserList,
     userList,
     createTransaction,
+    transactionAmount,
+    setTransactionAmount,
+    recipient,
+    setRecipient,
   } = cabinet;
-  const [recipient, setRecipient] = useState<User | null>(null);
-  const [amount, setAmount] = useState('');
 
   useEffect(() => {
     fetchUserInfo();
   }, []);
 
+  const createTransactionWrapper = useCallback(() => {
+    createTransaction({
+      name: recipient!.name,
+      amount: transactionAmount,
+    });
+  }, [recipient, transactionAmount]);
+
   const btnDisabled = useMemo(() => {
-    return !recipient || !recipient.name || !amount;
-  }, [!recipient, amount]);
+    return !recipient || !recipient.name || !transactionAmount;
+  }, [!recipient, transactionAmount]);
 
   return (
     <View style={stylePatterns.container}>
@@ -45,16 +54,15 @@ const Home: React.FC<Props> = (props) => {
         onItemSelected={setRecipient}
       />
       <AppInput
-        value={amount}
-        onChangeText={setAmount}
-        keyboardType="number-pad"
+        value={transactionAmount}
+        onChangeText={setTransactionAmount}
+        keyboardType="numeric"
       />
       <PrimaryBtn
         disabled={btnDisabled}
         title="Commit"
-        onPress={() => createTransaction({ name: recipient!.name, amount })}
+        onPress={createTransactionWrapper}
       />
-      <Text>Home screen</Text>
     </View>
   );
 };

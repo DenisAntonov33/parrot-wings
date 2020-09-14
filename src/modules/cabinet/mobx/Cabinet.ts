@@ -13,10 +13,22 @@ class Cabinet {
   @observable currentUser: UserFull | null = null;
   @observable userList: User[] = [];
   @observable transactions: Transaction[] = [];
+  @observable recipient: User | null = null;
+  @observable transactionAmount: string = '';
 
   @action
   setCurrentUser = (value: UserFull) => {
     this.currentUser = value;
+  };
+
+  @action
+  setRecipient = (value: User | null) => {
+    this.recipient = value;
+  };
+
+  @action
+  setTransactionAmount = (value: string) => {
+    this.transactionAmount = value;
   };
 
   @action
