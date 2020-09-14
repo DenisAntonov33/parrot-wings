@@ -4,8 +4,15 @@ import { containerHorizontalPadding } from './sizes';
 
 export default StyleSheet.create({
   container: {
+    alignItems: 'center',
     flex: 1,
     padding: containerHorizontalPadding,
+  },
+  formContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 30,
   },
   title: {
     color: colors.textPrimary,
@@ -14,6 +21,10 @@ export default StyleSheet.create({
   },
   mainText: {
     color: colors.textPrimary,
+    fontSize: 14,
+  },
+  accentText: {
+    color: colors.primary,
     fontSize: 14,
   },
 });

@@ -35,4 +35,7 @@ export default StyleSheet.create({
     width: rowHeight,
     height: rowHeight,
   },
+  list: {
+    width: '100%',
+  },
 });

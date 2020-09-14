@@ -7,6 +7,7 @@ import PrimaryBtn from '../../../../components/buttons/PrimaryBtn';
 import InputGroup from '../../../../components/InputGroup';
 import Auth from '../../mobx/Auth';
 import { inject, observer } from 'mobx-react';
+import styles from './styles';
 
 interface Props {
   navigation: StackNavigationProp<AuthStackParamList>;
@@ -22,14 +23,18 @@ const Login: React.FC<Props> = (props) => {
 
   return (
     <View style={stylePatterns.container}>
-      <InputGroup
-        fields={signInForm}
-        onChange={updateSignInForm}
-        onSubmit={signIn}
-      />
-      <PrimaryBtn title="Sign in" onPress={signIn} />
-      <Text>Don't have an account yet?</Text>
-      <Text onPress={signUp}>Sign up</Text>
+      <View style={stylePatterns.formContainer}>
+        <InputGroup
+          fields={signInForm}
+          onChange={updateSignInForm}
+          onSubmit={signIn}
+        />
+        <PrimaryBtn title="Sign in" onPress={signIn} style={styles.btn} />
+        <Text style={stylePatterns.mainText}>Don't have an account yet?</Text>
+        <Text style={stylePatterns.accentText} onPress={signUp}>
+          Sign up
+        </Text>
+      </View>
     </View>
   );
 };

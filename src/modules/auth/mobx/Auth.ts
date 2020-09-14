@@ -18,6 +18,12 @@ class Auth {
     { field: 'username', value: '', error: '', label: 'Name' },
     { field: 'email', value: '', error: '', label: 'Email' },
     { field: 'password', value: '', error: '', label: 'Password' },
+    {
+      field: 'password_repeat',
+      value: '',
+      error: '',
+      label: 'Repeat password',
+    },
   ];
   @observable signInForm: InputField[] = [
     { field: 'email', value: '', error: '', label: 'Email' },

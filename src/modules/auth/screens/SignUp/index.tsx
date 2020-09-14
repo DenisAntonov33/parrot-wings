@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { View, Text } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AuthStackParamList, AuthRoutes } from '../../types';
@@ -21,17 +21,26 @@ const SignUp: React.FC<Props> = (props) => {
     navigation.navigate(AuthRoutes.logIn);
   }, [navigation]);
 
+  const btnDisabled = useMemo(() => {
+    const fieldsIsFill = signUpForm.every((item) => item.value);
+    const passwordIsValid = signUpForm[2].value === signUpForm[3].value;
+    return !fieldsIsFill || !passwordIsValid;
+  }, [signUpForm]);
+
   return (
     <View style={stylePatterns.container}>
-      <InputGroup
-        fields={signUpForm}
-        onChange={updateSignUpForm}
-        onSubmit={signUp}
-      />
-      <Text>Login screen</Text>
-      <PrimaryBtn title="sign up" onPress={signUp} />
-      <Text>Already have an account?</Text>
-      <Text onPress={signIn}>Sign in</Text>
+      <View style={stylePatterns.formContainer}>
+        <InputGroup
+          fields={signUpForm}
+          onChange={updateSignUpForm}
+          onSubmit={signUp}
+        />
+        <PrimaryBtn title="sign up" onPress={signUp} disabled={btnDisabled} />
+        <Text style={stylePatterns.mainText}>Already have an account?</Text>
+        <Text style={stylePatterns.accentText} onPress={signIn}>
+          Sign in
+        </Text>
+      </View>
     </View>
   );
 };

@@ -9,6 +9,7 @@ import Cabinet from '../../mobx/Cabinet';
 import AutoCompleteInput from '../../../../components/AutoCompleteInput';
 import AppInput from '../../../../components/AppInput';
 import PrimaryBtn from '../../../../components/buttons/PrimaryBtn';
+import styles from './styles';
 
 interface Props {
   navigation: StackNavigationProp<CabinetStackParamList>;
@@ -47,22 +48,25 @@ const Home: React.FC<Props> = (props) => {
   return (
     <View style={stylePatterns.container}>
       {Boolean(currentUser) && <UserInfo user={currentUser!} />}
-      <AutoCompleteInput
-        users={userList}
-        selectedItem={recipient}
-        onChangeText={fetchUserList}
-        onItemSelected={setRecipient}
-      />
-      <AppInput
-        value={transactionAmount}
-        onChangeText={setTransactionAmount}
-        keyboardType="numeric"
-      />
-      <PrimaryBtn
-        disabled={btnDisabled}
-        title="Commit"
-        onPress={createTransactionWrapper}
-      />
+      <View style={stylePatterns.formContainer}>
+        <AutoCompleteInput
+          users={userList}
+          selectedItem={recipient}
+          onChangeText={fetchUserList}
+          onItemSelected={setRecipient}
+        />
+        <AppInput
+          value={transactionAmount}
+          onChangeText={setTransactionAmount}
+          keyboardType="numeric"
+        />
+        <PrimaryBtn
+          disabled={btnDisabled}
+          title="Commit"
+          onPress={createTransactionWrapper}
+          style={styles.btn}
+        />
+      </View>
     </View>
   );
 };

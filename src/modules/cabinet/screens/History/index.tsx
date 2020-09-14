@@ -91,6 +91,7 @@ const History: React.FC<Props> = (props) => {
     <View style={stylePatterns.container}>
       {Boolean(currentUser) && <UserInfo user={currentUser!} />}
       <FlatList
+        style={styles.list}
         data={transactions}
         renderItem={({ item }) => (
           <Item item={item} canRepeat onPress={onRepeatPress} />
