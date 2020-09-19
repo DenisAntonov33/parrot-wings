@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { isValidElement, memo } from 'react';
 import {
   Text,
   TouchableOpacityProps,
@@ -41,7 +41,7 @@ const PrimaryBtn: React.FC<Props> = memo((props) => {
           {title}
         </Text>
       )}
-      {Boolean(children) && children}
+      {isValidElement(children) && children}
     </TouchableOpacity>
   );
 });
