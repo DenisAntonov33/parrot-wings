@@ -15,11 +15,11 @@ apiInstance.interceptors.request.use((request) => {
   return request;
 });
 
-apiInstance.interceptors.response.use((response) => {
-  if (response.status === 404) {
+apiInstance.interceptors.response.use(undefined, (error) => {
+  if (error.response.status === 401) {
     auth.signOut();
   }
-  return response;
+  return Promise.reject(error);
 });
 
 export const setToken = (token: string) => {
