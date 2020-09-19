@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { StackHeaderLeftButtonProps } from '@react-navigation/stack';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
 import styles from './styles';
 
-const BurgerBtn = ({ ...props }: StackHeaderLeftButtonProps) => {
+const BurgerBtn = memo(() => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -17,6 +16,6 @@ const BurgerBtn = ({ ...props }: StackHeaderLeftButtonProps) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 export default BurgerBtn;

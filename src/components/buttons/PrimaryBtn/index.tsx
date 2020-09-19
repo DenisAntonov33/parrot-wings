@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Text,
   TouchableOpacityProps,
@@ -13,7 +13,7 @@ interface Props extends TouchableOpacityProps {
   disableTitleStyle?: TextStyle;
 }
 
-const PrimaryBtn: React.FC<Props> = (props) => {
+const PrimaryBtn: React.FC<Props> = memo((props) => {
   const {
     title,
     style,
@@ -22,7 +22,6 @@ const PrimaryBtn: React.FC<Props> = (props) => {
     disableTitleStyle,
     ...propsRest
   } = props;
-
   return (
     <TouchableOpacity
       style={[
@@ -45,6 +44,6 @@ const PrimaryBtn: React.FC<Props> = (props) => {
       {Boolean(children) && children}
     </TouchableOpacity>
   );
-};
+});
 
 export default PrimaryBtn;
